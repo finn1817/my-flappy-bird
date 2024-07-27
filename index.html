@@ -246,17 +246,18 @@
         });
         document.getElementById('newGameBtn').addEventListener('click', startGame);
 
-        // Add space bar jump functionality
+        // adding space bar as another jump keybind
         document.addEventListener('keydown', (event) => {
             if (event.code === 'Space' && isGameRunning && !isPaused) {
                 bird.jump();
-                event.preventDefault(); // Prevent scrolling
+                event.preventDefault(); // to "disable" scrolling
             }
         });
 
-        // Initial setup
+        // starting setup
         ctx.fillStyle = 'black';
         ctx.font = '20px Arial';
+        // fount online - start button to begin full and position
         ctx.fillText('Press Start Game to begin', canvas.width / 2 - 100, canvas.height / 2);
     </script>
 </body>
