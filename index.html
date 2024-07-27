@@ -143,10 +143,15 @@
                 this.x = canvas.width;
                 this.width = 20;
                 this.speed = 2;
+                this.passed = false;
             }
 
             update() {
                 this.x -= this.speed;
+                if (!this.passed && this.x + this.width < bird.x) {
+                    score++;
+                    this.passed = true;
+                }
             }
 
             draw() {
@@ -205,7 +210,6 @@
 
                 if (pipes[i].x < -pipes[i].width) {
                     pipes.splice(i, 1);
-                    score++;
                 }
 
                 if (bird.x + bird.size > pipes[i].x && bird.x < pipes[i].x + pipes[i].width) {
