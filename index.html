@@ -2,12 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- setting the viewport to make sure the page is mobile-friendly -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- setting the title of the page -->
     <title>Dan's Flappy Bird</title>
+    <!-- style section for CSS to style the page -->
     <style>
         body {
+            /* setting font family and text alignment */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
+            /* creating a gradient background */
             background: linear-gradient(135deg, #87CEEB, #4682B4);
             margin: 0;
             padding: 20px;
@@ -20,16 +25,19 @@
             overflow: hidden;
         }
         h1 {
+            /* styling for the heading */
             color: #2c3e50;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         #gameCanvas {
+            /* styling for the game canvas */
             border: 2px solid #2c3e50;
             background-color: #f1f1f1;
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
         }
         .button {
+            /* styling for buttons */
             font-size: 16px;
             padding: 8px 16px;
             margin: 5px;
@@ -42,32 +50,39 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .button:hover {
+            /* hover effect for buttons */
             background-color: #2980b9;
             transform: translateY(-2px);
             box-shadow: 0 6px 8px rgba(0,0,0,0.15);
         }
         #newGameBtn {
+            /* styling for the new game button */
             display: none;
             background-color: #2ecc71;
         }
         #newGameBtn:hover {
+            /* hover effect for the new game button */
             background-color: #27ae60;
         }
         #gameControls {
+            /* flexbox layout for game controls */
             display: flex;
             justify-content: center;
             margin-bottom: 10px;
         }
         .game-wrapper {
+            /* flexbox layout for the game wrapper */
             display: flex;
             align-items: center;
         }
         .side-controls {
+            /* flexbox layout for side controls */
             display: flex;
             flex-direction: column;
             margin: 0 10px;
         }
         p {
+            /* styling for paragraph text */
             background-color: rgba(255, 255, 255, 0.7);
             padding: 5px;
             border-radius: 5px;
@@ -77,23 +92,31 @@
     </style>
 </head>
 <body>
+    <!-- main heading of the page -->
     <h1>Dan's Flappy Bird!</h1>
+    <!-- wrapper for game elements -->
     <div class="game-wrapper">
+        <!-- side controls for game actions -->
         <div class="side-controls">
             <button id="startBtn" class="button">Start Game</button>
             <button id="pauseBtn" class="button">Pause</button>
             <button id="stopBtn" class="button">Stop Game</button>
         </div>
+        <!-- canvas element where the game is drawn -->
         <canvas id="gameCanvas" width="480" height="270"></canvas>
+        <!-- side controls for game actions -->
         <div class="side-controls">
             <button id="jumpBtn" class="button">JUMP</button>
             <button id="newGameBtn" class="button">New Game</button>
         </div>
     </div>
+    <!-- player instructions -->
     <p>Use the JUMP button or SPACE BAR to stay in the air</p>
     <p>How long can you stay alive?</p>
 
+    <!-- script section for JavaScript to add game functionality -->
     <script>
+        // getting the canvas element and its context for drawing
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         let gameInterval;
@@ -105,9 +128,11 @@
         let score = 0;
         let previousScores = [];
 
+        // loading the bird image
         const birdImg = new Image();
         birdImg.src = 'https://github.com/finn1817/image-links/blob/main/Flappy_Bird.jpg?raw=true';
 
+        // bird class to represent the bird object in the game
         class Bird {
             constructor() {
                 this.x = 50;
@@ -119,23 +144,28 @@
             }
 
             update() {
+                // update the bird's position based on velocity and gravity
                 this.velocity += this.gravity;
                 this.y += this.velocity;
 
+                // checking for crashes with the top or bottom of the game page
                 if (this.y + this.size > canvas.height || this.y < 0) {
                     gameOver();
                 }
             }
 
             jump() {
+                // setting the bird's velocity to lift when it jumps
                 this.velocity = this.lift;
             }
 
             draw() {
+                // drawing the bird on the canvas
                 ctx.drawImage(birdImg, this.x, this.y, this.size, this.size);
             }
         }
 
+        // pipe class to show the pipes in the game
         class Pipe {
             constructor() {
                 this.top = Math.random() * (canvas.height - 100);
@@ -147,20 +177,24 @@
             }
 
             update() {
+                // update the pipe's position
                 this.x -= this.speed;
                 if (!this.passed && this.x + this.width < bird.x) {
+                    // increase the score when the bird passes a pipe
                     score++;
                     this.passed = true;
                 }
             }
 
             draw() {
+                // draw the pipe on the canvas
                 ctx.fillStyle = 'green';
                 ctx.fillRect(this.x, 0, this.width, this.top);
                 ctx.fillRect(this.x, this.bottom, this.width, canvas.height);
             }
         }
 
+        // func to start the game
         function startGame() {
             if (!isGameRunning) {
                 bird = new Bird();
@@ -173,6 +207,7 @@
             }
         }
 
+        // func to pause the game
         function pauseGame() {
             if (isGameRunning) {
                 if (isPaused) {
@@ -187,6 +222,7 @@
             }
         }
 
+        // func to stop the game
         function stopGame() {
             isGameRunning = false;
             clearInterval(gameInterval);
@@ -194,24 +230,30 @@
             document.getElementById('newGameBtn').style.display = 'inline-block';
         }
 
+        // func to update the game state
         function updateGame() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // clear the canvas
 
+            // update and draw the bird
             bird.update();
             bird.draw();
 
+            // add in new pipes at same steady intervals
             if (frames % 100 === 0) {
                 pipes.push(new Pipe());
             }
 
+            // update and draw each pipe, and check for any crashes into pipes
             for (let i = pipes.length - 1; i >= 0; i--) {
                 pipes[i].update();
                 pipes[i].draw();
 
+                // erase pipes that have moved off screen
                 if (pipes[i].x < -pipes[i].width) {
                     pipes.splice(i, 1);
                 }
 
+                // check for crash with the bird
                 if (bird.x + bird.size > pipes[i].x && bird.x < pipes[i].x + pipes[i].width) {
                     if (bird.y < pipes[i].top || bird.y + bird.size > pipes[i].bottom) {
                         gameOver();
@@ -219,17 +261,21 @@
                 }
             }
 
+            // show the current score
             ctx.fillStyle = 'black';
             ctx.font = '20px Arial';
             ctx.fillText(`Score: ${score}`, 10, 30);
 
+            // show the previous scores
             ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
             ctx.font = '16px Arial';
             ctx.fillText(`Previous Scores: ${previousScores.join(', ')}`, 10, 60);
 
+            // add to the frame counter
             frames++;
         }
 
+        // func to handle game over
         function gameOver() {
             previousScores.unshift(score);
             if (previousScores.length > 5) previousScores.pop();
@@ -238,6 +284,7 @@
 
         let frames = 0;
 
+        // event listeners for game controls
         document.getElementById('startBtn').addEventListener('click', startGame);
         document.getElementById('pauseBtn').addEventListener('click', pauseGame);
         document.getElementById('stopBtn').addEventListener('click', stopGame);
@@ -246,18 +293,17 @@
         });
         document.getElementById('newGameBtn').addEventListener('click', startGame);
 
-        // adding space bar as another jump keybind
+        // event listener for adding space bar as a jump keybind
         document.addEventListener('keydown', (event) => {
             if (event.code === 'Space' && isGameRunning && !isPaused) {
                 bird.jump();
-                event.preventDefault(); // to "disable" scrolling
+                event.preventDefault(); // to prevent scrolling
             }
         });
 
-        // starting setup
+        // main setup - show instructions on the screen
         ctx.fillStyle = 'black';
         ctx.font = '20px Arial';
-        // fount online - start button to begin full and position
         ctx.fillText('Press Start Game to begin', canvas.width / 2 - 100, canvas.height / 2);
     </script>
 </body>
