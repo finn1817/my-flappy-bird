@@ -13,9 +13,6 @@
             --secondary-color: #2ecc71;
             --secondary-dark: #27ae60;
             --accent-color: #f1c40f;
-            --accent-dark: #f39c12;
-            --danger-color: #e74c3c;
-            --danger-dark: #c0392b;
             --text-color: #2c3e50;
             --text-light: #7f8c8d;
             --light-bg: linear-gradient(135deg, #87CEEB, #4682B4);
@@ -30,7 +27,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         body {
@@ -45,7 +42,6 @@
             justify-content: center;
             padding: 20px;
             position: relative;
-            overflow-x: hidden;
         }
 
         body.dark-mode {
@@ -76,10 +72,6 @@
             transform: translateY(-2px);
         }
 
-        body.dark-mode .back-to-home {
-            box-shadow: 0 2px 5px var(--shadow-dark);
-        }
-
         .theme-toggle {
             position: fixed;
             top: 20px;
@@ -107,19 +99,6 @@
         .theme-toggle:hover {
             background-color: var(--primary-color);
             color: white;
-            transform: scale(1.05);
-        }
-
-        body.dark-mode .theme-toggle:hover {
-            background-color: white;
-            color: var(--primary-dark);
-        }
-
-        .game-container {
-            max-width: 800px;
-            width: 100%;
-            margin: 20px auto;
-            position: relative;
         }
 
         h1 {
@@ -146,82 +125,37 @@
 
         .game-wrapper {
             display: flex;
-            flex-direction: column;
             align-items: center;
             gap: 20px;
-            margin-bottom: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .canvas-container {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px var(--shadow-light);
-            max-width: 100%;
-        }
-
-        body.dark-mode .canvas-container {
-            box-shadow: 0 10px 20px var(--shadow-dark);
+        .side-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 120px;
         }
 
         #gameCanvas {
-            display: block;
+            border: 2px solid var(--primary-color);
             background-color: #f1f1f1;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px var(--shadow-light);
             max-width: 100%;
             height: auto;
         }
 
         body.dark-mode #gameCanvas {
-            background-color: #2c3e50;
-        }
-
-        .game-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
-        .game-overlay.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .game-over-text {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .final-score {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            margin-bottom: 30px;
-        }
-
-        .game-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            width: 100%;
-            max-width: 500px;
+            border-color: var(--primary-dark);
+            box-shadow: 0 10px 20px var(--shadow-dark);
         }
 
         .button {
-            padding: 12px 24px;
-            font-size: 1rem;
+            padding: 10px 15px;
+            font-size: 14px;
             cursor: pointer;
             background-color: var(--primary-color);
             color: white;
@@ -229,28 +163,15 @@
             border-radius: 5px;
             transition: all 0.3s;
             font-weight: 500;
-            box-shadow: 0 4px 6px var(--shadow-light);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
         }
 
-        body.dark-mode .button {
-            box-shadow: 0 4px 6px var(--shadow-dark);
-        }
-
         .button:hover {
+            background-color: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 6px 8px var(--shadow-light);
-        }
-
-        body.dark-mode .button:hover {
-            box-shadow: 0 6px 8px var(--shadow-dark);
-        }
-
-        .button:active {
-            transform: translateY(0);
         }
 
         .button:disabled {
@@ -259,137 +180,52 @@
             transform: none;
         }
 
-        .start-button {
+        #startBtn {
             background-color: var(--secondary-color);
         }
 
-        .start-button:hover {
+        #startBtn:hover {
             background-color: var(--secondary-dark);
         }
 
-        .pause-button {
-            background-color: var(--primary-color);
-        }
-
-        .pause-button:hover {
-            background-color: var(--primary-dark);
-        }
-
-        .stop-button {
-            background-color: var(--danger-color);
-        }
-
-        .stop-button:hover {
-            background-color: var(--danger-dark);
-        }
-
-        .jump-button {
+        #jumpBtn {
             background-color: var(--accent-color);
-            padding: 15px 30px;
-            font-size: 1.2rem;
-        }
-
-        .jump-button:hover {
-            background-color: var(--accent-dark);
-        }
-
-        .new-game-button {
-            background-color: var(--secondary-color);
-            padding: 15px 30px;
-            font-size: 1.2rem;
-        }
-
-        .new-game-button:hover {
-            background-color: var(--secondary-dark);
-        }
-
-        .instructions {
-            background-color: var(--card-light);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 5px 15px var(--shadow-light);
-        }
-
-        body.dark-mode .instructions {
-            background-color: var(--card-dark);
-            box-shadow: 0 5px 15px var(--shadow-dark);
-        }
-
-        .instructions h2 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        body.dark-mode .instructions h2 {
-            color: white;
-        }
-
-        .instruction-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: rgba(52, 152, 219, 0.1);
-            border-radius: 5px;
-        }
-
-        body.dark-mode .instruction-item {
-            background-color: rgba(52, 152, 219, 0.2);
-        }
-
-        .key {
-            background-color: #f1f1f1;
-            color: var(--text-color);
-            padding: 5px 10px;
-            border-radius: 5px;
-            margin-right: 15px;
             font-weight: bold;
-            min-width: 80px;
-            text-align: center;
-            box-shadow: 0 2px 4px var(--shadow-light);
+            font-size: 16px;
+            padding: 12px 15px;
         }
 
-        body.dark-mode .key {
-            background-color: #34495e;
-            color: white;
-            box-shadow: 0 2px 4px var(--shadow-dark);
+        #newGameBtn {
+            display: none;
+            background-color: var(--secondary-color);
+        }
+
+        #newGameBtn:hover {
+            background-color: var(--secondary-dark);
         }
 
         .stats-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 20px 0;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .stats-card {
             background-color: var(--card-light);
             border-radius: 10px;
-            padding: 20px;
-            flex: 1;
-            min-width: 250px;
+            padding: 15px;
+            margin-top: 20px;
             box-shadow: 0 5px 15px var(--shadow-light);
+            max-width: 500px;
+            width: 100%;
         }
 
-        body.dark-mode .stats-card {
+        body.dark-mode .stats-container {
             background-color: var(--card-dark);
             box-shadow: 0 5px 15px var(--shadow-dark);
         }
 
         .stats-title {
-            color: var(--primary-color);
-            margin-bottom: 15px;
             font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         body.dark-mode .stats-title {
@@ -399,13 +235,14 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 10px;
+            margin-bottom: 15px;
         }
 
         .stat-item {
             background-color: rgba(52, 152, 219, 0.1);
-            padding: 15px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 5px;
             text-align: center;
         }
 
@@ -414,7 +251,7 @@
         }
 
         .stat-value {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: var(--primary-color);
         }
@@ -426,225 +263,79 @@
         .stat-label {
             font-size: 0.9rem;
             color: var(--text-light);
-            margin-top: 5px;
         }
 
         body.dark-mode .stat-label {
             color: #bdc3c7;
         }
 
-        .high-scores-list {
+        .score-list {
             list-style-type: none;
             padding: 0;
+            max-height: 200px;
+            overflow-y: auto;
         }
 
-        .high-score-item {
+        .score-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            align-items: center;
+            padding: 8px 10px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 5px;
         }
 
-        body.dark-mode .high-score-item {
-            border-color: rgba(255, 255, 255, 0.1);
+        body.dark-mode .score-item {
+            border-color: #34495e;
         }
 
-        .high-score-rank {
-            font-weight: bold;
-            color: var(--primary-color);
-            width: 30px;
-        }
-
-        body.dark-mode .high-score-rank {
-            color: white;
-        }
-
-        .high-score-value {
+        .score-value {
             font-weight: bold;
         }
 
-        .high-score-date {
+        .score-date {
             color: var(--text-light);
             font-size: 0.9rem;
         }
 
-        body.dark-mode .high-score-date {
+        body.dark-mode .score-date {
             color: #bdc3c7;
         }
 
-        .difficulty-selector {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .difficulty-button {
-            padding: 8px 16px;
-            border: 2px solid var(--primary-color);
-            border-radius: 5px;
-            background-color: transparent;
-            color: var(--primary-color);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-
-        body.dark-mode .difficulty-button {
-            border-color: white;
-            color: white;
-        }
-
-        .difficulty-button.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        body.dark-mode .difficulty-button.active {
-            background-color: white;
-            color: var(--primary-dark);
-        }
-
-        .difficulty-button:hover {
-            transform: translateY(-2px);
-        }
-
-        .bird-customizer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 15px 0;
-        }
-
-        .bird-options {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .bird-option {
-            width: 50px;
-            height: 50px;
-            border-radius: 5px;
-            cursor: pointer;
-            overflow: hidden;
-            border: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .bird-option.selected {
-            border-color: var(--primary-color);
-            transform: scale(1.1);
-        }
-
-        body.dark-mode .bird-option.selected {
-            border-color: white;
-        }
-
-        .bird-option img {
+        .instructions {
+            background-color: var(--card-light);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            max-width: 500px;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
-        .medal {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--accent-color);
-            color: white;
-            text-align: center;
-            line-height: 40px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 5px var(--shadow-light);
-        }
-
-        body.dark-mode .medal {
-            box-shadow: 0 2px 5px var(--shadow-dark);
-        }
-
-        .medal.gold {
-            background-color: #f1c40f;
-        }
-
-        .medal.silver {
-            background-color: #bdc3c7;
-        }
-
-        .medal.bronze {
-            background-color: #cd6133;
+        body.dark-mode .instructions {
+            background-color: var(--card-dark);
+            box-shadow: 0 5px 15px var(--shadow-dark);
         }
 
         @media (max-width: 768px) {
+            .game-wrapper {
+                flex-direction: column;
+            }
+
+            .side-controls {
+                flex-direction: row;
+                min-width: auto;
+                width: 100%;
+                justify-content: center;
+            }
+
             h1 {
                 font-size: 2rem;
             }
 
-            .stats-container {
-                flex-direction: column;
-            }
-
-            .stats-card {
-                width: 100%;
-            }
-
             .back-to-home, .theme-toggle {
                 position: static;
-                margin-bottom: 10px;
+                margin: 10px;
             }
-
-            .game-controls {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .button {
-                width: 100%;
-            }
-        }
-
-        .mobile-controls {
-            display: none;
-        }
-
-        @media (max-width: 600px) {
-            .mobile-controls {
-                display: block;
-                margin-top: 15px;
-            }
-
-            .mobile-jump-button {
-                width: 80px;
-                height: 80px;
-                background-color: var(--accent-color);
-                border: none;
-                border-radius: 50%;
-                color: white;
-                font-size: 1.5rem;
-                font-weight: bold;
-                cursor: pointer;
-                box-shadow: 0 4px 8px var(--shadow-light);
-            }
-
-            body.dark-mode .mobile-jump-button {
-                box-shadow: 0 4px 8px var(--shadow-dark);
-            }
-        }
-
-        /* Animation keyframes */
-        @keyframes birdFlap {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-            100% { transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
         }
     </style>
 </head>
@@ -657,267 +348,162 @@
         <i class="fas fa-moon"></i>
     </button>
 
-    <div class="game-container">
-        <h1>Dan's Flappy Bird</h1>
-        <p class="subtitle">Fly through the pipes and set a high score!</p>
+    <h1>Dan's Flappy Bird</h1>
+    <p class="subtitle">Fly through the pipes and set a high score!</p>
 
-        <div class="difficulty-selector">
-            <button class="difficulty-button active" data-difficulty="easy">Easy</button>
-            <button class="difficulty-button" data-difficulty="medium">Medium</button>
-            <button class="difficulty-button" data-difficulty="hard">Hard</button>
+    <div class="game-wrapper">
+        <div class="side-controls">
+            <button id="startBtn" class="button">
+                <i class="fas fa-play"></i> Start
+            </button>
+            <button id="pauseBtn" class="button">
+                <i class="fas fa-pause"></i> Pause
+            </button>
+            <button id="stopBtn" class="button">
+                <i class="fas fa-stop"></i> Stop
+            </button>
         </div>
-
-        <div class="bird-customizer">
-            <h3>Choose Your Bird</h3>
-            <div class="bird-options">
-                <div class="bird-option selected" data-bird="yellow">
-                    <img src="https://github.com/finn1817/image-links/blob/main/Flappy_Bird.jpg?raw=true" alt="Yellow Bird">
-                </div>
-                <div class="bird-option" data-bird="red">
-                    <img src="https://raw.githubusercontent.com/finn1817/image-links/main/red-bird.png" alt="Red Bird">
-                </div>
-                <div class="bird-option" data-bird="blue">
-                    <img src="https://raw.githubusercontent.com/finn1817/image-links/main/blue-bird.png" alt="Blue Bird">
-                </div>
-            </div>
+        
+        <canvas id="gameCanvas" width="480" height="270"></canvas>
+        
+        <div class="side-controls">
+            <button id="jumpBtn" class="button">
+                <i class="fas fa-angle-up"></i> JUMP
+            </button>
+            <button id="newGameBtn" class="button">
+                <i class="fas fa-redo"></i> New Game
+            </button>
         </div>
+    </div>
 
-        <div class="game-wrapper">
-            <div class="canvas-container">
-                <canvas id="gameCanvas" width="480" height="320"></canvas>
-                <div id="game-overlay" class="game-overlay">
-                    <div class="game-over-text">Game Over!</div>
-                    <div id="medal-container"></div>
-                    <div class="final-score">Score: <span id="final-score">0</span></div>
-                    <button id="new-game-btn" class="button new-game-button">
-                        <i class="fas fa-redo"></i> Play Again
-                    </button>
-                </div>
+    <div class="stats-container">
+        <h3 class="stats-title"><i class="fas fa-chart-bar"></i> Game Statistics</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value" id="high-score">0</div>
+                <div class="stat-label">High Score</div>
             </div>
-
-            <div class="game-controls">
-                <button id="start-btn" class="button start-button">
-                    <i class="fas fa-play"></i> Start Game
-                </button>
-                <button id="pause-btn" class="button pause-button" disabled>
-                    <i class="fas fa-pause"></i> Pause
-                </button>
-                <button id="stop-btn" class="button stop-button" disabled>
-                    <i class="fas fa-stop"></i> Stop Game
-                </button>
-                <button id="jump-btn" class="button jump-button" disabled>
-                    <i class="fas fa-angle-up"></i> JUMP
-                </button>
+            <div class="stat-item">
+                <div class="stat-value" id="games-played">0</div>
+                <div class="stat-label">Games Played</div>
             </div>
-
-            <div class="mobile-controls">
-                <button id="mobile-jump-btn" class="mobile-jump-button" disabled>
-                    <i class="fas fa-angle-up"></i>
-                </button>
+            <div class="stat-item">
+                <div class="stat-value" id="current-score">0</div>
+                <div class="stat-label">Current Score</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="avg-score">0</div>
+                <div class="stat-label">Average Score</div>
             </div>
         </div>
 
-        <div class="stats-container">
-            <div class="stats-card">
-                <h3 class="stats-title"><i class="fas fa-chart-bar"></i> Game Statistics</h3>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-value" id="total-games">0</div>
-                        <div class="stat-label">Games Played</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="total-score">0</div>
-                        <div class="stat-label">Total Score</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="high-score">0</div>
-                        <div class="stat-label">High Score</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="avg-score">0</div>
-                        <div class="stat-label">Average Score</div>
-                    </div>
-                </div>
-            </div>
+        <h3 class="stats-title"><i class="fas fa-trophy"></i> Previous Scores</h3>
+        <ul id="scores-list" class="score-list">
+            <li class="score-item">No previous scores</li>
+        </ul>
+    </div>
 
-            <div class="stats-card">
-                <h3 class="stats-title"><i class="fas fa-trophy"></i> High Scores</h3>
-                <ul id="high-scores-list" class="high-scores-list">
-                    <li class="high-score-item">No scores yet</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="instructions">
-            <h2>How to Play</h2>
-            <div class="instruction-item">
-                <div class="key">Space</div>
-                <div>Press the space bar to make the bird jump</div>
-            </div>
-            <div class="instruction-item">
-                <div class="key">JUMP</div>
-                <div>Click the JUMP button to make the bird jump</div>
-            </div>
-            <div class="instruction-item">
-                <div class="key">Arrow Keys</div>
-                <div>Use the up arrow to make the bird jump</div>
-            </div>
-            <div class="instruction-item">
-                <div class="key">P</div>
-                <div>Press P to pause/resume the game</div>
-            </div>
-        </div>
+    <div class="instructions">
+        <h3 class="stats-title"><i class="fas fa-info-circle"></i> How to Play</h3>
+        <p>Use the JUMP button or SPACE BAR to stay in the air. Avoid the pipes and see how far you can go!</p>
     </div>
 
     <script>
         // DOM Elements
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
-        const startBtn = document.getElementById('start-btn');
-        const pauseBtn = document.getElementById('pause-btn');
-        const stopBtn = document.getElementById('stop-btn');
-        const jumpBtn = document.getElementById('jump-btn');
-        const mobileJumpBtn = document.getElementById('mobile-jump-btn');
-        const newGameBtn = document.getElementById('new-game-btn');
-        const gameOverlay = document.getElementById('game-overlay');
-        const finalScoreElement = document.getElementById('final-score');
-        const medalContainer = document.getElementById('medal-container');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const jumpBtn = document.getElementById('jumpBtn');
+        const newGameBtn = document.getElementById('newGameBtn');
         const themeToggle = document.getElementById('theme-toggle');
-        const difficultyButtons = document.querySelectorAll('.difficulty-button');
-        const birdOptions = document.querySelectorAll('.bird-option');
-        
-        // Stats elements
-        const totalGamesElement = document.getElementById('total-games');
-        const totalScoreElement = document.getElementById('total-score');
         const highScoreElement = document.getElementById('high-score');
+        const gamesPlayedElement = document.getElementById('games-played');
+        const currentScoreElement = document.getElementById('current-score');
         const avgScoreElement = document.getElementById('avg-score');
-        const highScoresList = document.getElementById('high-scores-list');
+        const scoresList = document.getElementById('scores-list');
 
         // Game variables
         let gameInterval;
-        let animationFrame;
         let isGameRunning = false;
         let isPaused = false;
-        let lastTime = 0;
-        let deltaTime = 0;
         let bird;
         let pipes = [];
         let score = 0;
         let frames = 0;
-        let highScores = [];
-        let totalGames = 0;
+        let previousScores = [];
+        let highScore = 0;
+        let gamesPlayed = 0;
         let totalScore = 0;
-        let difficulty = 'easy';
-        let selectedBird = 'yellow';
-        let gameSpeed = 2; // Base speed that will be modified by difficulty
-        let pipeSpawnRate = 120; // Frames between pipe spawns
-        let pipeGap = 120; // Gap between top and bottom pipes
 
-        // Bird images
-        const birdImages = {
-            'yellow': new Image(),
-            'red': new Image(),
-            'blue': new Image()
-        };
+        // Load the bird image
+        const birdImg = new Image();
+        birdImg.src = 'https://github.com/finn1817/image-links/blob/main/Flappy_Bird.jpg?raw=true';
         
-        birdImages.yellow.src = 'https://github.com/finn1817/image-links/blob/main/Flappy_Bird.jpg?raw=true';
-        birdImages.red.src = 'https://raw.githubusercontent.com/finn1817/image-links/main/red-bird.png';
-        birdImages.blue.src = 'https://raw.githubusercontent.com/finn1817/image-links/main/blue-bird.png';
-
-        // Background and pipe images
-        const bgImage = new Image();
-        bgImage.src = 'https://raw.githubusercontent.com/finn1817/image-links/main/flappy-bg.png';
-        
-        const pipeTopImage = new Image();
-        pipeTopImage.src = 'https://raw.githubusercontent.com/finn1817/image-links/main/pipe-top.png';
-        
-        const pipeBottomImage = new Image();
-        pipeBottomImage.src = 'https://raw.githubusercontent.com/finn1817/image-links/main/pipe-bottom.png';
-        
-        // Ground image
-        const groundImage = new Image();
-        groundImage.src = 'https://raw.githubusercontent.com/finn1817/image-links/main/ground.png';
-
-        // Sound effects
-        const jumpSound = new Audio('data:audio/wav;base64,UklGRnQFAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YVABAAD+/wYA9f8ZAOf/MwDY/1IA0P9xAMb/kgC+/7QAuP/WALH/8QCr/xEBpf8xAZ//UQGZ/3EBlP+RAY7/sQGJ/9EBhP/xAX7/EQJ4/zECc/9RAnj/cQJ5/5ECef+xAnn/0QJ4//ECeP8RA3j/MQN3/1EDd/9xA3f/kQN3/7EDd//RA3f/8QN3/xEEd/8xBHf/UQR3/3EEd/+RBHf/sQR3/9EEd//xBHf/EQV3/zEFd/9RBXf/cQV3/5EFd/+xBXf/0QV3//EFd/8RBnf/MQZ3/1EGd/9xBnf/kQZ3/7EGd//RBnf/8QZ3/xEHd/8xB3f/UQd3/3EHd/+RB3f/sQd3/9EHd//xB3f/EQh3/zEId/9RCHf/cQh3/5EId/+xCHf/0Qh3//EId/8RCXf/MQl3/1EJd/9xCXf/kQl3/7EJd//RCXf/8Ql3/xEKd/8xCnf/UQp3/3EKd/+RCnf/sQp3/9EKd//xCnf/EQt3/zELd/9RC3f/cQt3/5ELd/+xC3f/0Qt3//ELd/8RDHf/MQx3/1EMd/9xDHf/kQx3/7EMd//RDHf/8Qx3/xENd/8xDXf/UQ13/3ENd/+RDXf/sQ13/9ENd//xDXf/EQ53/zEOd/9RDnf/cQ53/5EOd/+xDnf/0Q53//EOd/8RD3f/MQ93/1EPd/9xD3f/kQ93/7EPd//RD3f/8Q93/xEQd/8xEHf/URB3/3EQd/+REHf/sRB3/9EQd//xEHf/ERF3/zERd/9REXf/cRF3/5ERd/+xEXf/0RF3//ERd/8REhEId/9xEnf/kRJ3/7ESd//REnf/8RJ3/xETd/8xE3f/URN3/3ETd/+RE3f/sRN3/9ETd//xE3f/ERR3/zEUd/9RFHf/cRR3/5EUd/+xFHf/0RR3//EUd/8RFXf/MRV3/1EVd/9xFXf/kRV3/7EVd//RFXf/8RV3/xEWd/8xFnf/URZ3/3EWd/+RFnf/sRZ3/9EWd//xFnf/ERd3/zEXd/9RF3f/cRd3/5EXd/+xF3f/0Rd3//EXd/8RGHf/MRh3/1EYd/9xGHf/kRh3/7EYd//RGHf/8Rh3/xEZd/8xGXf/URl3/3EZd/+RGXf/sRl3/9EZd//xGXf/ERp3/zEad/9RGnf/cRp3/5Ead/+xGnf/0Rp3//Ead/8RG3f/MRt3/1Ebd/9xG3f/kRt3/7Ebd//RG3f/8Rt3/xEcd/8xHHf/URx3/3Ecd/+RHHf/sRx3/9Ecd//xHHf/ER13/zEdd/9RHXf/cR13/5Edd/+xHXf/0R13//Edd/8RHnf/MR53/1Eed/9xHnf/kR53/7Eed//RHnf/8R53/xEfd/8xH3f/UR93/3Efd/+RH3f/sR93/9Efd//xH3f/ESB3/zEgd/9RIHf/cSB3/5Egd/+xIHf/0SB3//Egd/8RIXf/MSF3/1Ehd/9xIXf/kSF3/7Ehd//RIXf/8SF3/xEid/8xInf/USJ3/3Eid/+RInf/sSJ3/9Eid//xInf/ESN3/zEjd/9RI3f/cSN3/5Ejd/+xI3f/0SN3//Ejd/8RJHf/MSR3/1Ekd/9xJHf/kSR3/7Ekd//RJHf/8SR3/xEld/8xJXf/USV3/3Eld/+RJXf/sSV3/9Eld//xJXf/ESZ3/zEmd/9RJnf/cSZ3/5Emd/+xJnf/0SZ3//Emd/8RJ3f/MSd3/1End/9xJ3f/kSd3/7End//RJ3f/8Sd3/xEod/8xKHf/USh3/3Eod/+RKHf/sSh3/9Eod//xKHf/ESl3/zEpd/9RKXf/cSl3/5Epd/+xKXf/0Sl3//Epd/8RKnf/MSp3/1Eqd/9xKnf/kSp3/7Eqd//RKnf/8Sp3/xErd/8xK3f/USt3/3Erd/+RK3f/sSt3/9Erd//xK3f/ESx3/zEsd/9RLHf/cSx3/5Esd/+xLHf/0Sx3//Esd/8RLXf/MS13/1Etd/9xLXf/kS13/7Etd//RLXf/8S13/xEud/8xLnf/US53/3Eud/+RLnf/sS53/9Eud//xLnf/ES93/zEvd/9RL3f/cS93/5Evd/+xL3f/0S93//Evd/8RMHf/MTB3/1Ewd/9xMHf/kTB3/7Ewd//RMHf/8TB3/xExd/8xMXf/UTF3/3Exd/+RMXf/sTF3/9Exd//xMXf/ETJ3/zEyd/9RMnf/cTJ3/5Eyd/+xMnf/0TJ3//Eyd/8RM3f/MTN3/1Ezd/9xM3f/kTN3/7Ezd//RM3f/8TN3/xE0d/8xNHf/UTR3/3E0d/+RNHf/sTR3/9E0d//xNHf/ETV3/zE1d/9RNXf/cTV3/5E1d/+xNXf/0TV3//E1d/8RNnf/MTZ3/1E2d/9xNnf/kTZ3/7E2d//RNnf/8TZ3/xE3d/8xN3f/UTd3/3E3d/+RN3f/sTd3/9E3d//xN3f/ETh3/zE4d/9ROHf/cTh3/5E4d/+xOHf/0Th3//E4d/8ROXf/MTl3/1E5d/9xOXf/kTl3/7E5d//ROXf/8Tl3/xE6d/8xOnf/UTp3/3E6d/+ROnf/sTp3/9E6d//xOnf/ETt3/zE7d/9RO3f/cTt3/5E7d/+xO3f/0Tt3//E7d/8RPHf/MTx3/1E8d/9xPHf/kTx3/7E8d//RPHf/8Tx3/xE9d/8xPXf/UT13/3E9d/+RPXf/sT13/9E9d//xPXf/ET53/zE+d/9RPnf/cT53/5E+d/+xPnf/0T53//E+d/8RP3f/MT93/1E/d/9xP3f/kT93/7E/d//RP3f/8T93/xFAd/8xQHf/UUB3/3FAd/+RQHf/sUB3/9FAd//xQHf/EUF3/zFBd/9RQXf/cUF3/5FBd/+xQXf/0UF3//FBd/8RQnf/MUJ3/1FCd/9xQnf/kUJ3/7FCd//RQnf/8UJ3/xFDd/8xQ3f/UUN3/3FDd/+RQ3f/sUN3/9FDd//xQ3f/EUR3/zFEd/9RRHf/cUR3/5FEd/+xRHf/0UR3//FEd/8RRXf/MUV3/1FFd/9xRXf/kUV3/7FFd//RRXf/8UV3/xFGd/8xRnf/UUZ3/3FGd/+RRnf/sUZ3/9FGd//xRnf/EUd3/zFHd/9RR3f/cUd3/5FHd/+xR3f/0Ud3//FHd/8RSHf/MUh3/1FId/9xSHf/kUh3/7FId//RSHf/8Uh3/xFJd/8xSXf/UUl3/3FJd/+RSXf/sUl3/9FJd//xSXf/EUp3/zFKd/9RSnf/cUp3/5FKd/+xSnf/0Up3//FKd/8RS3f/MUt3/1FLd/9xS3f/kUt3/7FLd//RS3f/8Ut3/xFMd/8xTHf/UUx3/3FMd/+RTHf/sUx3/9FMd//xTHf/EU13/zFNd/9RTXf/cU13/5FNd/+xTXf/0U13//FNd/8RTnf/MU53/1FOd/9xTnf/kU53/7FOd//RTnf/8U53/xFPd/8xT3f/UU93/3FPd/+RT3f/sU93/9FPd//xT3f/EVB3/zFQd/9RUHf/cVB3/5FQd/+xUHf/0VB3//FQd/8RUXf/MVF3/1FRd/9xUXf/kVF3/7FRd//RUXf/8VF3/xFSd/8xUnf/UVJ3/3FSd/+RUnf/sVJ3/9FSd//xUnf/EVN3/zFTd/9RU3f/cVN3/5FTd/+xU3f/0VN3//FTd/8RVHf/MVR3/1FUd/9xVHf/kVR3/7FUd//RVHf/8VR3/xFVd/8xVXf/UVV3/3FVd/+RVXf/sVV3/9FVd//xVXf/EVZ3/zFWd/9RVnf/cVZ3/5FWd/+xVnf/0VZ3//FWd/8RV3f/MVd3/1FXd/9xV3f/kVd3/7FXd//RV3f/8Vd3/xFYd/8xWHf/UVh3/3FYd/+RWHf/sVh3/9FYd//xWHf/EVl3/zFZd/9RWXf/cVl3/5FZd/+xWXf/0Vl3//FZd/8RWnf/MVp3/1Fad/9xWnf/kVp3/7Fad//RWnf/8Vp3/xFbd/8xW3f/UVt3/3Fbd/+RW3f/sVt3/9Fbd//xW3f/EVx3/zFcd/9RXHf/cVx3/5Fcd/+xXHf/0Vx3//Fcd/8RXXf/MV13/1Fdd/9xXXf/kV13/7Fdd//RXXf/8V13/xFed/8xXnf/UV53/3Fed/+RXnf/sV53/9Fed//xXnf/EV93/zFfd/9RX3f/cV93/5Ffd/+xX3f/0V93//Ffd/8RYHf/MWB3/1Fgd/9xYHf/kWB3/7Fgd//RYHf/8WB3/xFhd/8xYXf/UWF3/3Fhd/+RYXf/sWF3/9Fhd//xYXf/EWJ3/zFid/9RYnf/cWJ3/5Fid/+xYnf/0WJ3//Fid/8RY3f/MWN3/1Fjd/9xY3f/kWN3/7Fjd//RY3f/8WN3/xFkd/8xZHf/UWR3/3Fkd/+RZHf/sWR3/9Fkd//xZHf/EWV3/zFld/9RZXf/cWV3/5Fld/+xZXf/0WV3//Fld/8RZnf/MWZ3/1Fmd/9xZnf/kWZ3/7Fmd//RZnf/8WZ3/xFnd/8xZ3f/UWd3/3Fnd/+RZ3f/sWd3/9Fnd//xZ3f/EWh3/zFod/9RaHf/cWh3/5Fod/+xaHf/0Wh3//Fod/8RaXf/MWl3/1Fpd/9xaXf/kWl3/7Fpd//RaXf/8Wl3/xFqd/8xanf/UWp3/3Fqd/+Ranf/sWp3/9Fqd//xanf/EWt3/zFrd/9Ra3f/cWt3/5Frd/+xa3f/0Wt3//Frd/8RbHf/MWx3/1Fsd/9xbHf/kWx3/7Fsd//RbHf/8Wx3/xFtd/8xbXf/UW13/3Ftd/+RbXf/sW13/9Ftd//xbXf/EW53/zFud/9Rbnf/cW53/5Fud/+xbnf/0W53//Fud/8Rb3f/MW93/1Fvd/9xb3f/kW93/7Fvd//Rb3f/8W93/xFwd/8xcHf/UXB3/3Fwd/+RcHf/sXB3/9Fwd//xcHf/EXF3/zFxd/9RcXf/cXF3/5Fxd/+xcXf/0XF3//Fxd/8Rcnf/MXJ3/1Fyd/9xcnf/kXJ3/7Fyd//Rcnf/8XJ3/xFzd/8xc3f/UXN3/3Fzd/+Rc3f/sXN3/9Fzd//xc3f/EXR3/zF0d/9RdHf/cXR3/5F0d/+xdHf/0XR3//F0d/8RdXf/MXV3/1F1d/9xdXf/kXV3/7F1d//RdXf/8XV3/xF2d/8xdnf/UXZ3/3F2d/+Rdnf/sXZ3/9F2d//xdnf/EXd3/zF3d/9Rd3f/cXd3/5F3d/+xd3f/0Xd3//F3d/8ReHf/MXh3/1F4d/9xeHf/kXh3/7F4d//ReHf/8Xh3/xF5d/8xeXf/UXl3/3F5d/+ReXf/sXl3/9F5d//xeXf/EXp3/zF6d/9Renf/cXp3/5F6d/+xenf/0Xp3//F6d/8Re3f/MXt3/1F7d/9xe3f/kXt3/7F7d//Re3f/8Xt3/xF8d/8xfHf/UXx3/3F8d/+RfHf/sXx3/9F8d//xfHf/EX13/zF9d/9RfXf/cX13/5F9d/+xfXf/0X13//F9d/8Rfnf/MX53/1F+d/9xfnf/kX53/7F+d//Rfnf/8X53/xF/d/8xf3f/UX93/3F/d/+Rf3f/sX93/9F/d//xf3f/EYB3/zGAd/9RgHf/cYB3/5GAd/+xgHf/0YB3//GAd/8RgXf/MYF3/1GBd/9xgXf/kYF3/7GBd//RgXf/8YF3/xGCd/8xgnf/UYJ3/3GCd/+Rgnf/sYJ3/9GCd//xgnf/EYN3/zGDd/9Rg3f/cYN3/5GDd/+xg3f/0YN3//GDd/8RhHf/MYR3/1GEd/9xhHf/kYR3/7GEd//RhHf/8YR3/xGFd/8xhXf/UYV3/3GFd/+RhXf/sYV3/9GFd//xhXf/EYZ3/zGGd/9Rhnf/cYZ3/5GGd/+xhnf/0YZ3//GGd/8Rh3f/MYd3/1GHd/9xh3f/kYd3/7GHd//Rh3f/8Yd3/xGId/8xiHf/UYh3/3GId/+RiHf/sYh3/9GId//xiHf/EYl3/zGJd/9RiXf/cYl3/5GJd/+xiXf/0Yl3//GJd/8Rinf/MYp3/1GKd/9xinf/kYp3/7GKd//Rinf/8Yp3/xGLd/8xi3f/UYt3/3GLd/+Ri3f/sYt3/9GLd//xi3f/EYx3/zGMd/9RjHf/cYx3/5GMd/+xjHf/0Yx3//GMd/8RjXf/MY13/1GNd/9xjXf/kY13/7GNd//RjXf/8Y13/xGOd/8xjnf/UY53/3GOd/+Rjnf/sY53/9GOd//xjnf/EY93/zGPd/9Rj3f/cY93/5GPd/+xj3f/0Y93//GPd/8RkHf/MZB3/1GQd/9xkHf/kZB3/7GQd//RkHf/8ZB3/xGRd/8xkXf/UZF3/3GRd/+RkXf/sZF3/9GRd//xkXf/EZJ3/zGSd/9Rknf/cZJ3/5GSd/+xknf/0ZJ3//GSd/8Rk3f/MZN3/1GTd/9xk3f/kZN3/7GTd//Rk3f/8ZN3/xGUd/8xlHf/UZR3/3GUd/+RlHf/sZR3/9GUd//xlHf/EZV3/zGVd/9RlXf/cZV3/5GVd/+xlXf/0ZV3//GVd/8Rlnf/MZZ3/1GWd/9xlnf/kZZ3/7GWd//Rlnf/8ZZ3/xGXd/8xl3f/UZd3/3GXd/+Rl3f/sZd3/9GXd//xl3f/EZh3/zGYd/9RmHf/cZh3/5GYd/+xmHf/0Zh3//GYd/8RmXf/MZl3/1GZd/9xmXf/kZl3/7GZd//RmXf/8Zl3/xGad/8xmnf/UZp3/3Gad/+Rmnf/sZp3/9Gad//xmnf/EZt3/zGbd/9Rm3f/cZt3/5Gbd/+xm3f/0Zt3//Gbd/8RnHf/MZx3/1Gcd/9xnHf/kZx3/7Gcd//RnHf/8Zx3/xGdd/8xnXf/UZ13/3Gdd/+RnXf/sZ13/9Gdd//xnXf/EZ53/zGed/9Rnnf/cZ53/5Ged/+xnnf/0Z53//Ged/8Rn3f/MZ93/1Gfd/9xn3f/kZ93/7Gfd//Rn3f/8Z93/xGgd/8xoHf/UaB3/3Ggd/+RoHf/saB3/9Ggd//xoHf/EaF3/zGhd/9RoXf/caF3/5Ghd/+xoXf/0aF3//Ghd/8Ronf/MaJ3/1Gid/9xonf/kaJ3/7Gid//Ronf/8aJ3/xGjd/8xo3f/UaN3/3Gjd/+Ro3f/saN3/9Gjd//xo3f/EaR3/zGkd/9RpHf/caR3/5Gkd/+xpHf/0aR3//Gkd/8RpXf/MaV3/1Gld/9xpXf/kaV3/7Gld//RpXf/8aV3/xGmd/8xpnf/UaZ3/3Gmd/+Rpnf/saZ3/9Gmd//xpnf/Ead3/zGnd/9Rp3f/cad3/5Gnd/+xp3f/0ad3//Gnd/8RqHf/Mah3/1God/9xqHf/kah3/7God//RqHf/8ah3/xGpd/8xqXf/Ual3/3Gpd/+RqXf/sal3/9Gpd//xqXf/Eap3/zGqd/9Rqnf/cap3/5Gqd/+xqnf/0ap3//Gqd/8Rq3f/Mat3/1Grd/9xq3f/kat3/7Grd//Rq3f/8at3/xGsd/8xrHf/Uax3/3Gsd/+RrHf/sax3/9Gsd//xrHf/Ea13/zGtd/9RrXf/ca13/5Gtd/+xrXf/0a13//Gtd/8Rrnf/Ma53/1Gud/9xrnf/ka53/7Gud//Rrnf/8a53/xGvd/8xr3f/Ua93/3Gvd/+Rr3f/sa93/9Gvd//xr3f/EbB3/zGwd/9RsHf/cbB3/5Gwd/+xsHf/0bB3//Gwd/8RsXf/MbF3/1Gxd/9xsXf/kbF3/7Gxd//RsXf/8bF3/xGyd/8xsnf/UbJ3/3Gyd/+Rsnf/sbJ3/9Gyd//xsnf/EbN3/zGzd/9Rs3f/cbN3/5Gzd/+xs3f/0bN3//Gzd/8RtHf/MbR3/1G0d/9xtHf/kbR3/7G0d//RtHf/8bR3/xG1d/8xtXf/UbV3/3G1d/+RtXf/sbV3/9G1d//xtXf/EbZ3/zG2d/9Rtnf/cbZ3/5G2d/+xtnf/0bZ3//G2d/8Rt3f/Mbd3/1G3d/9xt3f/kbd3/7G3d//Rt3f/8bd3/xG4d/8xuHf/Ubh3/3G4d/+RuHf/sbh3/9G4d//xuHf/Ebl3/zG5d/9RuXf/cbl3/5G5d/+xuXf/0bl3//G5d/8Runf/Mbp3/1G6d/9xunf/kbp3/7G6d//Runf/8bp3/xG7d/8xu3f/Ubt3/3G7d/+Ru3f/sbt3/9G7d//xu3f/Ebx3/zG8d/9RvHf/cbx3/5G8d/+xvHf/0bx3//G8d/8RvXf/Mb13/1G9d/9xvXf/kb13/7G9d//RvXf/8b13/xG+d/8xvnf/Ub53/3G+d/+Rvnf/sb53/9G+d//xvnf/Eb93/zG/d/9Rv3f/cb93/5G/d/+xv3f/0b93//G/d/8RwHf/McB3/1HAd/9xwHf/kcB3/7HAd//RwHf/8cB3/xHBd/8xwXf/UcF3/3HBd/+RwXf/scF3/9HBd//xwXf/EcJ3/zHCd/9Rwnf/ccJ3/5HCd/+xwnf/0cJ3//HCd/8Rw3f/McN3/1HDd/9xw3f/kcN3/7HDd//Rw3f/8cN3/xHEd/8xxHf/UcR3/3HEd/+RxHf/scR3/9HEd//xxHf/EcV3/zHFd/9RxXf/ccV3/5HFd/+xxXf/0cV3//HFd/8Rxnf/McZ3/1HGd/9xxnf/kcZ3/7HGd//Rxnf/8cZ3/xHHd/8xx3f/Ucd3/3HHd/+Rx3f/scd3/9HHd//xx3f/Ech3/zHId/9RyHf/cch3/5HId/+xyHf/0ch3//HId/8RyXf/Mcl3/1HJd/9xyXf/kcl3/7HJd//RyXf/8cl3/xHKd/8xynf/Ucp3/3HKd/+Rynf/scp3/9HKd//xynf/Ect3/zHLd/9Ry3f/cct3/5HLd/+xy3f/0ct3//HLd/8RzHf/Mcx3/1HMd/9xzHf/kcx3/7HMd//RzHf/8cx3/xHNd/8xzXf/Uc13/3HNd/+RzXf/sc13/9HNd//xzXf/Ec53/zHOd/9Rznf/cc53/5HOd/+xznf/0c53//HOd/8Rz3f/Mc93/1HPd/9xz3f/kc93/7HPd//Rz3f/8c93/xHQd/8x0Hf/UdB3/3HQd/+R0Hf/sdB3/9HQd//x0Hf/EdF3/zHRd/9R0Xf/cdF3/5HRd/+x0Xf/0dF3//HRd/8R0nf/MdJ3/1HSd/9x0nf/kdJ3/7HSd//R0nf/8dJ3/xHTd/8x03f/UdN3/3HTd/+R03f/sdN3/9HTd//x03f/EdR3/zHUd/9R1Hf/cdR3/5HUd/+x1Hf/0dR3//HUd/8R1Xf/MdV3/1HVd/9x1Xf/kdV3/7HVd//R1Xf/8dV3/xHWd/8x1nf/UdZ3/3HWd/+R1nf/sdZ3/9HWd//x1nf/Edd3/zHXd/9R13f/cdd3/5HXd/+x13f/0dd3//HXd/8R2Hf/Mdh3/1HYd/9x2Hf/kdh3/7HYd//R2Hf/8dh3/xHZd/8x2Xf/Udl3/3HZd/+R2Xf/sdl3/9HZd//x2Xf/Edp3/zHad/9R2nf/cdp3/5Had/+x2nf/0dp3//Had/8R23f/Mdt3/1Hbd/9x23f/kdt3/7Hbd//R23f/8dt3/xHcd/8x3Hf/Udx3/3Hcd/+R3Hf/sdx3/9Hcd//x3Hf/Ed13/zHdd/9R3Xf/cd13/5Hdd/+x3Xf/0d13//Hdd/8R3nf/Md53/1Hed/9x3nf/kd53/7Hed//R3nf/8d53/xHfd/8x33f/Ud93/3Hfd/+R33f/sd93/9Hfd//x33f/EeB3/zHgd/9R4Hf/ceB3/5Hgd/+x4Hf/0eB3//Hgd/8R4Xf/MeF3/1Hhd/9x4Xf/keF3/7Hhd//R4Xf/8eF3/xHid/8x4nf/UeJ3/3Hid/+R4nf/seJ3/9Hid//x4nf/EeN3/zHjd/9R43f/ceN3/5Hjd/+x43f/0eN3//Hjd/8R5Hf/MeR3/1Hkd/9x5Hf/keR3/7Hkd//R5Hf/8eR3/xHld/8x5Xf/UeV3/3Hld/+R5Xf/seV3/9Hld//x5Xf/EeZ3/zHmd/9R5nf/ceZ3/5Hmd/+x5nf/0eZ3//Hmd/8R53f/Med3/1Hnd/9x53f/ked3/7Hnd//R53f/8ed3/xHod/8x6Hf/Ueh3/3Hod/+R6Hf/seh3/9Hod//x6Hf/Eel3/zHpd/9R6Xf/cel3/5Hpd/+x6Xf/0el3//Hpd/8R6nf/Mep3/1Hqd/9x6nf/kep3/7Hqd//R6nf/8ep3/xHrd/8x63f/Uet3/3Hrd/+R63f/set3/9Hrd//x63f/Eex3/zHsd/9R7Hf/cex3/5Hsd/+x7Hf/0ex3//Hsd/8R7Xf/Me13/1Htd/9x7Xf/ke13/7Htd//R7Xf/8e13/xHud/8x7nf/Ue53/3Hud/+R7nf/se53/9Hud//x7nf/Ee93/zHvd/9R73f/ce93/5Hvd/+x73f/0e93//Hvd/8R8Hf/MfB3/1Hwd/9x8Hf/kfB3/7Hwd//R8Hf/8fB3/xHxd/8x8Xf/UfF3/3Hxd/+R8Xf/sfF3/9Hxd//x8Xf/EfJ3/zHyd/9R8nf/cfJ3/5Hyd/+x8nf/0fJ3//Hyd/8R83f/MfN3/1Hzd/9x83f/kfN3/7Hzd//R83f/8fN3/xH0d/8x9Hf/UfR3/3H0d/+R9Hf/sfR3/9H0d//x9Hf/EfV3/zH1d/9R9Xf/cfV3/5H1d/+x9Xf/0fV3//H1d/8R9nf/MfZ3/1H2d/9x9nf/kfZ3/7H2d//R9nf/8fZ3/xH3d/8x93f/Ufd3/3H3d/+R93f/sfd3/9H3d//x93f/Efh3/zH4d/9R+Hf/cfh3/5H4d/+x+Hf/0fh3//H4d/8R+Xf/Mfl3/1H5d/9x+Xf/kfl3/7H5d//R+Xf/8fl3/xH6d/8x+nf/Ufp3/3H6d/+R+nf/sfp3/9H6d//x+nf/Eft3/zH7d/9R+3f/cft3/5H7d/+x+3f/0ft3//H7d/8R/Hf/Mfx3/1H8d/9x/Hf/kfx3/7H8d//R/Hf/8fx3/xH9d/8x/Xf/Uf13/3H9d/+R/Xf/sf13/9H9d//x/Xf/Ef53/zH+d/9R/nf/cf53/5H+d/+x/nf/0f53//H+d/8R/3f/Mf93/1H/d/9x/3f/kf93/7H/d//R/3f/8f93/w==');
-        const scoreSound = new Audio('data:audio/wav;base64,UklGRnQDAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQADAAD////////+/////////v////3////8////+/////v////7////+v////r////6////+v////r////6////+/////v////8/////P////3////+///////////////////////////////////////////+/////f////z////7////+v////n////4////9/////f////2////9/////f////4////+P////n////6////+/////3////+//////////////////////////7////9////+/////r////4////9/////b////1////9P////P////z////8/////P////0////9f////b////3////+P////r////8/////f////////////7////8////+/////n////4////9v////X////0////8/////L////y////8v////L////z////9P////X////3////+P////r////8/////f////7////9////+/////r////4////9/////X////0////8/////L////x////8P////D////w////8f////L////0////9f////f////5////+/////7//////////////v////z////6////+P////f////1////9P////P////y////8f////D////w////8P////H////y////8/////T////2////+P////r////8/////v//////////+/////n////3////9f////T////y////8f////D////v////7/////D////w////8f////L////0////9v////j////6////+/////7////+/////P////r////4////9/////X////0////8/////L////x////8f////H////y////8/////X////3////+f////v////9//////////7////8////+v////j////3////9f////T////z////8v////L////y////8/////T////1////9/////n////7/////P////7////+/////P////v////5////+P////f////2////9f////X////1////9v////f////4////+f////v////8/////f////7////+/////P////z////7////+v////n////5////+f////n////6////+/////z////9/////v//////////');
-        const gameOverSound = new Audio('data:audio/wav;base64,UklGRnQFAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YVABAAD+/xIA/f8UAP3/FgD8/xoA+v8eAPj/IgD2/ycA9P8sAPL/MQDv/zYA7P87AOj/QADk/0UA3/9KANP/UADd/1EA1/9YAM7/XgDF/2QAvP9qALT/cACr/3YAo/97AJv/gQCT/4YAjP+LAIb/kACA/5QAe/+YAHX/nABw/58Aa/+iAGf/pQBj/6cAYP+qAF3/rABa/64AWP+wAFb/sQBU/7IAVP+0AFP/tABT/7QAVP+0AFX/tABW/7QAV/+zAFn/sgBb/7EAXf+wAF//rgBi/60AZf+rAGj/qQBs/6cAcP+kAHT/ogB4/58AfP+cAID/mQCE/5UAiP+RAJP/igCZ/4QAn/9+AKT/eACs/3MAtP9tALz/ZwDE/2AczACzAMMAswDTALIA4wCxAPMAsQACAa8AEQGuACABrAAvAaoAPwGoAE4BpQBdAaIAbAGfAHsBmwCLAZcAmgGTAKkBjwC4AYoAxwGFANYBgADlAXsA9AF2AAMCcAARAmoAHwJkAC0CXgA7AlgASQJRAFcCSgBlAkMAcwI8AIECNQCPAi4AnQImAKsCHgC5AhYAxgIOANQCBgDhAv3/7gL0//sC6/8IA+H/FQPn/x4D3P8rA9L/OAPd/z8D0v9MA8j/WQPA/2YDt/9yA7D/fgOq/4oDpP+WA57/ogOY/64Dkv+6A4z/xgOG/9IDgP/dA3r/6QN0//QDbf8ABGf/CwRh/xYEW/8hBFX/LARf/zMEWf8+BFP/SQRN/1QER/9gBEH/bAQ7/3cENf+CBDD/jQQq/5gEJP+kBB7/rwQY/7oEEv/FBAz/0AQG/9sEAP/lBPr+8ATz/vsE7P4GBeb+EAXF/hsF3v4lBdf+MAXn/joF4f5EBdv+TgXV/lgF0P5iVcr+bAXE/nYFv/6ABbr+igW0/pQFr/6eBan+qAWk/rIFnv68BZj+xgWS/tAFjP7aBYb+5AV//u4Fef73BXL+AQZS/goGbP4TBmX+HAZH/iUGYP4vBlr+OAZT/kEGTP5LBkX+VAZE/l4GPf5nBjb+cQYv/nsGKP6FBiH+jwYZ/pkGEv6jBgr+rQYC/rcG+v3BBvL9ywbp/dUG4P3gBtf96gbO/fQGyP3+Br/9CQe2/RMHrP0eB6L9KQeX/TQHi/0/B4D9SgeR/VQHhv1fB3v9age3/XQHrP1/B6H9igeb/ZUHlP2gB479qweH/bYHgP3BB3n9zAdy/dcHav3iB2L97Qdb/fgHU/0DCEH9Dgg5/RkIMv0kCCr9Lwgj/ToIHP1FCBb9UAg5/VoIMv1lCCv9cAgk/XsIHf2HCBX9kggO/Z0IBv2pCP/8tAj3/L8I7/zKCOf81QjX/OAIzfzrCMP89gi4/AEJrvwMCaP8Fwm3/CMJrPwuCaL8OQmY/EQJj/xPCYb8WgmG/GUJfvxwCXb8ewlt/IYJZfyRCV38nAlU/KcJSe1y/LcJQPzCCTj8zQkv/NgJJ/zjCR/87wkX/PoJDv0FCQX9EAn7/BsJ8vwmCej8MQne/DwJ1PxHCcr8Ugm//F0JtfxoCav8cwmg/H4Jlf2JCYP4lAlv/KAJZPyrCVj8tglM/MEJQPzNCTT82Qko/OQJHPzwCRD8/AkD/AcK9vsTCur7Hgrb+yoKzfs2Cr/7QgqP+00KgftZCnT7ZQpm+3EKV/t9Ckn7iQo7+5UKLPuiCh37rgbO+7oK/vvGCu/70grg++AK0PvtCsD7+gqw+wcLn/sUC437Igud+3sLjPuJC3v7lgtr+6MLWvuxC0n7vgs2+8wLI/vaCw/76Ar7+/YK5vsEC9D7EwvK+xYLyvscC8r7IgvK+ygLyfsuC8j7NAvH+zoLxfs/C8T7RQvC+0kLwPtOC777UQu7+1QLuPtXC7X7Wgux+10LrPtfC6b7YQui+2I=');
-
-        // Game variables update based on difficulty
-        function updateDifficulty() {
-            switch (difficulty) {
-                case 'easy':
-                    gameSpeed = 2;
-                    pipeSpawnRate = 120;
-                    pipeGap = 130;
-                    break;
-                case 'medium':
-                    gameSpeed = 3;
-                    pipeSpawnRate = 100;
-                    pipeGap = 120;
-                    break;
-                case 'hard':
-                    gameSpeed = 4;
-                    pipeSpawnRate = 80;
-                    pipeGap = 100;
-                    break;
-            }
-        }
-
-        // Load saved data from localStorage
+        // Load saved data
         function loadSavedData() {
-            if (localStorage.getItem('flappy-highscores')) {
-                try {
-                    highScores = JSON.parse(localStorage.getItem('flappy-highscores'));
-                    updateHighScoresList();
-                } catch (e) {
-                    console.error("Error loading high scores:", e);
-                    highScores = [];
-                }
+            if (localStorage.getItem('flappyHighScore')) {
+                highScore = parseInt(localStorage.getItem('flappyHighScore'));
+                highScoreElement.textContent = highScore;
             }
             
-            if (localStorage.getItem('flappy-total-games')) {
-                totalGames = parseInt(localStorage.getItem('flappy-total-games'));
+            if (localStorage.getItem('flappyGamesPlayed')) {
+                gamesPlayed = parseInt(localStorage.getItem('flappyGamesPlayed'));
+                gamesPlayedElement.textContent = gamesPlayed;
             }
             
-            if (localStorage.getItem('flappy-total-score')) {
-                totalScore = parseInt(localStorage.getItem('flappy-total-score'));
+            if (localStorage.getItem('flappyTotalScore')) {
+                totalScore = parseInt(localStorage.getItem('flappyTotalScore'));
+                updateAvgScore();
+            }
+            
+            if (localStorage.getItem('flappyPreviousScores')) {
+                previousScores = JSON.parse(localStorage.getItem('flappyPreviousScores'));
+                updateScoresList();
             }
             
             // Load theme preference
-            if (localStorage.getItem('flappy-dark-mode') === 'true') {
+            if (localStorage.getItem('flappyDarkMode') === 'true') {
                 document.body.classList.add('dark-mode');
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             }
+        }
+        
+        // Update average score
+        function updateAvgScore() {
+            const avgScore = gamesPlayed > 0 ? Math.round(totalScore / gamesPlayed) : 0;
+            avgScoreElement.textContent = avgScore;
+        }
+        
+        // Update scores list
+        function updateScoresList() {
+            scoresList.innerHTML = '';
             
-            // Load bird preference
-            if (localStorage.getItem('flappy-bird')) {
-                selectedBird = localStorage.getItem('flappy-bird');
-                
-                // Update selected bird in UI
-                birdOptions.forEach(option => {
-                    if (option.getAttribute('data-bird') === selectedBird) {
-                        birdOptions.forEach(opt => opt.classList.remove('selected'));
-                        option.classList.add('selected');
-                    }
-                });
+            if (previousScores.length === 0) {
+                const li = document.createElement('li');
+                li.className = 'score-item';
+                li.textContent = 'No previous scores';
+                scoresList.appendChild(li);
+                return;
             }
             
-            // Load difficulty preference
-            if (localStorage.getItem('flappy-difficulty')) {
-                difficulty = localStorage.getItem('flappy-difficulty');
+            previousScores.forEach((scoreData, index) => {
+                const li = document.createElement('li');
+                li.className = 'score-item';
                 
-                // Update selected difficulty in UI
-                difficultyButtons.forEach(button => {
-                    if (button.getAttribute('data-difficulty') === difficulty) {
-                        difficultyButtons.forEach(btn => btn.classList.remove('active'));
-                        button.classList.add('active');
-                    }
-                });
-            }
-            
-            updateDifficulty();
-            updateStats();
+                const scoreValue = document.createElement('span');
+                scoreValue.className = 'score-value';
+                scoreValue.textContent = scoreData.score;
+                
+                const scoreDate = document.createElement('span');
+                scoreDate.className = 'score-date';
+                scoreDate.textContent = scoreData.date;
+                
+                li.appendChild(scoreValue);
+                li.appendChild(scoreDate);
+                scoresList.appendChild(li);
+            });
         }
 
         // Bird class
@@ -927,505 +513,237 @@
                 this.y = canvas.height / 2;
                 this.velocity = 0;
                 this.gravity = 0.5;
-                this.lift = -8;
-                this.size = 35;
-                this.flapCounter = 0;
+                this.lift = -6;
+                this.size = 30;
             }
 
-            update(deltaTime) {
-                // Update the bird's velocity and position
+            update() {
+                // Update the bird's position based on velocity and gravity
                 this.velocity += this.gravity;
                 this.y += this.velocity;
 
-                // Animation counter
-                this.flapCounter += deltaTime;
-
-                // Check for collisions with the top or bottom of the screen
-                if (this.y + this.size > canvas.height - 20) { // 20px for ground
-                    this.y = canvas.height - this.size - 20;
+                // Check for collisions with the top or bottom of the game area
+                if (this.y + this.size > canvas.height || this.y < 0) {
                     gameOver();
-                } else if (this.y < 0) {
-                    this.y = 0;
-                    this.velocity = 0;
+                    return;
                 }
             }
 
             jump() {
-                // Set the bird's velocity to the lift value
+                // Set the bird's velocity to lift when it jumps
                 this.velocity = this.lift;
-                
-                // Play jump sound
-                if (!isMuted) {
-                    jumpSound.currentTime = 0;
-                    jumpSound.play().catch(e => console.log("Error playing sound:", e));
-                }
             }
 
             draw() {
-                // Apply a simple flapping animation
-                const flapOffset = Math.sin(this.flapCounter / 100) * 2;
-                
-                // Draw the bird image with rotation based on velocity
-                ctx.save();
-                ctx.translate(this.x + this.size / 2, this.y + this.size / 2);
-                
-                // Rotate based on velocity (diving or climbing)
-                const angle = Math.max(-0.5, Math.min(0.5, this.velocity / 10));
-                ctx.rotate(angle);
-                
-                // Draw the bird image
-                ctx.drawImage(
-                    birdImages[selectedBird],
-                    -this.size / 2,
-                    -this.size / 2 + flapOffset,
-                    this.size,
-                    this.size
-                );
-                
-                ctx.restore();
+                // Draw the bird on the canvas
+                ctx.drawImage(birdImg, this.x, this.y, this.size, this.size);
             }
         }
 
         // Pipe class
         class Pipe {
             constructor() {
-                this.spacing = pipeGap;
-                this.top = Math.random() * (canvas.height - this.spacing - 100) + 20;
-                this.bottom = this.top + this.spacing;
+                this.top = Math.random() * (canvas.height - 100 - 40) + 20;
+                this.bottom = this.top + 100;
                 this.x = canvas.width;
-                this.width = 60;
-                this.speed = gameSpeed;
+                this.width = 20;
+                this.speed = 2;
                 this.passed = false;
-                this.scored = false;
             }
 
             update() {
-                // Move the pipe to the left
+                // Update the pipe's position
                 this.x -= this.speed;
                 
-                // Check if the bird has passed this pipe
-                if (!this.scored && this.x + this.width < bird.x) {
+                // Score when the bird passes a pipe
+                if (!this.passed && this.x + this.width < bird.x) {
                     score++;
-                    this.scored = true;
-                    
-                    // Play score sound
-                    if (!isMuted) {
-                        scoreSound.currentTime = 0;
-                        scoreSound.play().catch(e => console.log("Error playing sound:", e));
-                    }
+                    currentScoreElement.textContent = score;
+                    this.passed = true;
                 }
             }
 
             draw() {
-                // Draw the top pipe
-                ctx.drawImage(
-                    pipeTopImage,
-                    this.x,
-                    this.top - 320,
-                    this.width,
-                    320
-                );
-                
-                // Draw the bottom pipe
-                ctx.drawImage(
-                    pipeBottomImage,
-                    this.x,
-                    this.bottom,
-                    this.width,
-                    320
-                );
-            }
-
-            hits(bird) {
-                // Check if the bird collides with this pipe
-                if (bird.y < this.top || bird.y + bird.size > this.bottom) {
-                    if (bird.x + bird.size > this.x && bird.x < this.x + this.width) {
-                        return true;
-                    }
-                }
-                return false;
+                // Draw the pipe on the canvas
+                ctx.fillStyle = 'green';
+                ctx.fillRect(this.x, 0, this.width, this.top);
+                ctx.fillRect(this.x, this.bottom, this.width, canvas.height);
             }
         }
 
-        // Initialize the game
+        // start the game
         function initGame() {
             bird = new Bird();
             pipes = [];
             score = 0;
+            currentScoreElement.textContent = score;
             frames = 0;
-            updateDifficulty();
         }
 
-        // Start the game
+        // start the game
         function startGame() {
             if (!isGameRunning) {
                 initGame();
                 isGameRunning = true;
                 isPaused = false;
-                
-                // Hide the game over overlay
-                gameOverlay.classList.remove('visible');
-                
-                // Update button states
-                startBtn.disabled = true;
-                pauseBtn.disabled = false;
-                stopBtn.disabled = false;
-                jumpBtn.disabled = false;
-                mobileJumpBtn.disabled = false;
-                
-                // Reset timing variables
-                lastTime = 0;
-                
-                // Start the game loop
-                animationFrame = requestAnimationFrame(gameLoop);
+                gameInterval = setInterval(updateGame, 20);
+                newGameBtn.style.display = 'none';
             }
         }
 
-        // Pause the game
+        // pause the game
         function pauseGame() {
             if (isGameRunning) {
-                isPaused = !isPaused;
-                
                 if (isPaused) {
-                    pauseBtn.innerHTML = '<i class="fas fa-play"></i> Resume';
-                } else {
+                    gameInterval = setInterval(updateGame, 20);
+                    isPaused = false;
                     pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
-                    lastTime = 0; // Reset lastTime to avoid big jumps
-                    animationFrame = requestAnimationFrame(gameLoop);
+                } else {
+                    clearInterval(gameInterval);
+                    isPaused = true;
+                    pauseBtn.innerHTML = '<i class="fas fa-play"></i> Resume';
                 }
             }
         }
 
-        // Stop the game
+        // stop the game
         function stopGame() {
-            if (isGameRunning) {
-                isGameRunning = false;
-                cancelAnimationFrame(animationFrame);
-                
-                // Update button states
-                startBtn.disabled = false;
-                pauseBtn.disabled = true;
-                stopBtn.disabled = true;
-                jumpBtn.disabled = true;
-                mobileJumpBtn.disabled = true;
-                
-                // Clear the canvas
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Draw starting message
-                drawStartScreen();
-            }
-        }
-
-        // Game over
-        function gameOver() {
-            if (!isGameRunning) return;
-            
             isGameRunning = false;
-            
-            // Play game over sound
-            if (!isMuted) {
-                gameOverSound.currentTime = 0;
-                gameOverSound.play().catch(e => console.log("Error playing sound:", e));
-            }
-            
-            // Update stats
-            totalGames++;
-            totalScore += score;
-            localStorage.setItem('flappy-total-games', totalGames);
-            localStorage.setItem('flappy-total-score', totalScore);
-            
-            // Add score to high scores
-            addHighScore(score);
-            
-            // Update stats display
-            updateStats();
-            
-            // Show game over overlay
-            finalScoreElement.textContent = score;
-            
-            // Add medal based on score
-            let medalHTML = '';
-            if (score >= 50) {
-                medalHTML = '<div class="medal gold">G</div>';
-            } else if (score >= 25) {
-                medalHTML = '<div class="medal silver">S</div>';
-            } else if (score >= 10) {
-                medalHTML = '<div class="medal bronze">B</div>';
-            }
-            medalContainer.innerHTML = medalHTML;
-            
-            gameOverlay.classList.add('visible');
-            
-            // Update button states
-            startBtn.disabled = false;
-            pauseBtn.disabled = true;
-            stopBtn.disabled = true;
-            jumpBtn.disabled = true;
-            mobileJumpBtn.disabled = true;
-        }
-
-        // Game loop
-        function gameLoop(timestamp) {
-            if (!isGameRunning) return;
-            
-            if (isPaused) {
-                animationFrame = requestAnimationFrame(gameLoop);
-                return;
-            }
-            
-            // Calculate delta time
-            if (!lastTime) lastTime = timestamp;
-            deltaTime = timestamp - lastTime;
-            lastTime = timestamp;
-            
-            // Clear the canvas
+            clearInterval(gameInterval);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw background
-            drawBackground();
-            
-            // Update and draw pipes
-            updatePipes();
-            
-            // Update and draw the bird
-            bird.update(deltaTime);
-            bird.draw();
-            
-            // Draw ground
-            drawGround();
-            
-            // Draw score
-            drawScore();
-            
-            // Increment frame counter
-            frames++;
-            
-            // Request next animation frame
-            animationFrame = requestAnimationFrame(gameLoop);
+            drawStartMessage();
+            newGameBtn.style.display = 'inline-block';
         }
 
-        // Update and draw pipes
-        function updatePipes() {
-            // Add new pipes at regular intervals
-            if (frames % pipeSpawnRate === 0) {
+        // update the game state
+        function updateGame() {
+            // clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // update and draw the bird
+            bird.update();
+            bird.draw();
+
+            // add new pipes at intervals
+            if (frames % 100 === 0) {
                 pipes.push(new Pipe());
             }
-            
-            // Update and draw each pipe
+
+            // update and draw each pipe
             for (let i = pipes.length - 1; i >= 0; i--) {
                 pipes[i].update();
                 pipes[i].draw();
-                
-                // Check for collisions with the bird
-                if (pipes[i].hits(bird)) {
-                    gameOver();
-                }
-                
-                // Remove pipes that have moved off screen
-                if (pipes[i].x + pipes[i].width < 0) {
+
+                // remove pipes that have moved off screen
+                if (pipes[i].x < -pipes[i].width) {
                     pipes.splice(i, 1);
+                    continue;
+                }
+
+                // check for collision with the bird
+                if (bird.x + bird.size > pipes[i].x && bird.x < pipes[i].x + pipes[i].width) {
+                    if (bird.y < pipes[i].top || bird.y + bird.size > pipes[i].bottom) {
+                        gameOver();
+                        return;
+                    }
                 }
             }
+
+            // increment frame counter
+            frames++;
         }
 
-        // Draw the background
-        function drawBackground() {
-            // Draw sky background
-            ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
-        }
-
-        // Draw the ground
-        function drawGround() {
-            // Draw repeating ground texture
-            const groundY = canvas.height - 20;
-            ctx.drawImage(groundImage, 0, groundY, canvas.width, 20);
-        }
-
-        // Draw the score
-        function drawScore() {
-            ctx.fillStyle = 'white';
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
-            ctx.font = 'bold 30px Roboto';
-            ctx.textAlign = 'center';
+        // game over
+        function gameOver() {
+            // stop the game
+            isGameRunning = false;
+            clearInterval(gameInterval);
             
-            // Draw score with outline
-            ctx.strokeText(score.toString(), canvas.width / 2, 50);
-            ctx.fillText(score.toString(), canvas.width / 2, 50);
+            // save the score
+            addScore(score);
+            
+            // update statistics
+            gamesPlayed++;
+            gamesPlayedElement.textContent = gamesPlayed;
+            localStorage.setItem('flappyGamesPlayed', gamesPlayed);
+            
+            totalScore += score;
+            localStorage.setItem('flappyTotalScore', totalScore);
+            
+            updateAvgScore();
+            
+            // show new game button
+            newGameBtn.style.display = 'inline-block';
         }
-
-        // Draw start screen
-        function drawStartScreen() {
-            // Draw background and ground
-            drawBackground();
-            drawGround();
-            
-            // Draw message
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 24px Roboto';
-            ctx.textAlign = 'center';
-            ctx.fillText('Press Start Game to begin', canvas.width / 2, canvas.height / 2);
-            
-            ctx.font = '18px Roboto';
-            ctx.fillText('Use SPACE or the JUMP button to fly', canvas.width / 2, canvas.height / 2 + 40);
-        }
-
-        // Add a score to the high scores list
-        function addHighScore(score) {
-            // Add the new score with date
-            highScores.push({
+        
+        // add a score to the previous scores list
+        function addScore(score) {
+            // add the score with current date
+            previousScores.unshift({
                 score: score,
-                date: new Date().toLocaleDateString(),
-                difficulty: difficulty
+                date: new Date().toLocaleDateString()
             });
             
-            // Sort high scores in descending order
-            highScores.sort((a, b) => b.score - a.score);
-            
-            // Keep only the top 10
-            if (highScores.length > 10) {
-                highScores.splice(10);
+            // keep only the last 10 scores
+            if (previousScores.length > 10) {
+                previousScores.pop();
             }
             
-            // Save to localStorage
-            localStorage.setItem('flappy-highscores', JSON.stringify(highScores));
+            // save to localStorage
+            localStorage.setItem('flappyPreviousScores', JSON.stringify(previousScores));
             
-            // Update the high scores list
-            updateHighScoresList();
-        }
-
-        // Update the high scores list in the UI
-        function updateHighScoresList() {
-            highScoresList.innerHTML = '';
-            
-            if (highScores.length === 0) {
-                const listItem = document.createElement('li');
-                listItem.className = 'high-score-item';
-                listItem.textContent = 'No scores yet';
-                highScoresList.appendChild(listItem);
-                return;
+            // update high score if needed
+            if (score > highScore) {
+                highScore = score;
+                highScoreElement.textContent = highScore;
+                localStorage.setItem('flappyHighScore', highScore);
             }
             
-            // Add each high score to the list
-            highScores.forEach((highScore, index) => {
-                const listItem = document.createElement('li');
-                listItem.className = 'high-score-item';
-                
-                const rank = document.createElement('span');
-                rank.className = 'high-score-rank';
-                rank.textContent = `#${index + 1}`;
-                
-                const scoreValue = document.createElement('span');
-                scoreValue.className = 'high-score-value';
-                scoreValue.textContent = `${highScore.score} (${highScore.difficulty})`;
-                
-                const scoreDate = document.createElement('span');
-                scoreDate.className = 'high-score-date';
-                scoreDate.textContent = highScore.date;
-                
-                listItem.appendChild(rank);
-                listItem.appendChild(scoreValue);
-                listItem.appendChild(scoreDate);
-                
-                highScoresList.appendChild(listItem);
-            });
+            // update the scores list
+            updateScoresList();
+        }
+        
+        // draw the start message
+        function drawStartMessage() {
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Press Start to begin', canvas.width / 2, canvas.height / 2);
         }
 
-        // Update the stats display
-        function updateStats() {
-            totalGamesElement.textContent = totalGames;
-            totalScoreElement.textContent = totalScore;
-            
-            // Calculate high score
-            const highScore = highScores.length > 0 ? highScores[0].score : 0;
-            highScoreElement.textContent = highScore;
-            
-            // Calculate average score
-            const avgScore = totalGames > 0 ? Math.round(totalScore / totalGames) : 0;
-            avgScoreElement.textContent = avgScore;
-        }
-
-        // Event listeners
+        // event listeners
         startBtn.addEventListener('click', startGame);
         pauseBtn.addEventListener('click', pauseGame);
         stopBtn.addEventListener('click', stopGame);
-        newGameBtn.addEventListener('click', startGame);
-        
-        // Jump buttons
         jumpBtn.addEventListener('mousedown', () => {
             if (isGameRunning && !isPaused) bird.jump();
         });
-        
-        mobileJumpBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            if (isGameRunning && !isPaused) bird.jump();
-        });
-        
-        // Keyboard event listeners
+        newGameBtn.addEventListener('click', startGame);
+
+        // space bar to jump
         document.addEventListener('keydown', (event) => {
-            if (event.code === 'Space' || event.code === 'ArrowUp') {
-                if (isGameRunning && !isPaused) {
-                    bird.jump();
-                    event.preventDefault(); // Prevent page scrolling
-                }
-            } else if (event.code === 'KeyP') {
-                pauseGame();
+            if (event.code === 'Space' && isGameRunning && !isPaused) {
+                bird.jump();
+                event.preventDefault(); // to not allow scrolling
             }
         });
         
-        // Difficulty buttons
-        difficultyButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                difficultyButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                
-                difficulty = button.getAttribute('data-difficulty');
-                localStorage.setItem('flappy-difficulty', difficulty);
-                
-                updateDifficulty();
-            });
-        });
-        
-        // Bird option buttons
-        birdOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                birdOptions.forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-                
-                selectedBird = option.getAttribute('data-bird');
-                localStorage.setItem('flappy-bird', selectedBird);
-            });
-        });
-        
-        // Theme toggle
-        themeToggle.addEventListener('click', () => {
+        // theme toggle
+        themeToggle.addEventListener('click', function() {
             document.body.classList.toggle('dark-mode');
             
             if (document.body.classList.contains('dark-mode')) {
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                localStorage.setItem('flappy-dark-mode', 'true');
+                localStorage.setItem('flappyDarkMode', 'true');
             } else {
                 themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                localStorage.setItem('flappy-dark-mode', 'false');
+                localStorage.setItem('flappyDarkMode', 'false');
             }
         });
 
-        // Initialize the game
+        // start load game
         loadSavedData();
-        drawStartScreen();
-        
-        // Set up mute state
-        let isMuted = localStorage.getItem('flappy-muted') === 'true';
-        
-        // Function to toggle mute
-        function toggleMute() {
-            isMuted = !isMuted;
-            localStorage.setItem('flappy-muted', isMuted);
-        }
+        drawStartMessage();
     </script>
 </body>
 </html>
